@@ -38,6 +38,8 @@ class BasicBlock(nn.Module):
         out = F.relu(self.bn1(self.conv1(x)))
         # 经过第二个卷积层和批量归一化层
         out = self.bn2(self.conv2(out))
+        # 如果此时的 out 接近 0，说明特征图中的元素值都非常小，这意味着模型在当前层没有对输入数据产生明显的响应。也就是说，模型没有从输入数据中提取到有区分度的特征
+        
         # 加上残差连接，将输入x经过shortcut处理后的结果与out相加
         out += self.shortcut(x) #（如果 self.shortcut 为空，就直接返回 x；如果不为空，则进行相应的调整）
         # 再次通过ReLU激活函数
