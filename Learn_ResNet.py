@@ -61,7 +61,7 @@ class BasicBlock(nn.Module):
         # 经过第二个卷积层和批量归一化层
         out = self.bn2(self.conv2(out))
         # 加上残差连接，将输入x经过shortcut处理后的结果与out相加
-        out += self.shortcut(x)
+        out += self.shortcut(x) # 即 f(x) + x
         # 再次通过ReLU激活函数
         out = F.relu(out)
         return out
